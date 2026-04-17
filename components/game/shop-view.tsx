@@ -42,7 +42,7 @@ export function ShopView({
   ) => {
     const cat = `${type}s` as 'weapons' | 'defenses' | 'sets'
     if (equipped[type] === id) return 'EQUIPADO'
-    if (owned[cat].includes(id)) return 'USAR'
+    if (owned[cat]?.includes(id)) return 'USAR'
     return null
   }
 
@@ -56,22 +56,15 @@ export function ShopView({
         </h3>
 
         <div className="grid grid-cols-1 gap-3">
-
           <button
             onClick={() => onExchange('usdt_souls')}
             className="flex justify-between items-center p-3 bg-zinc-900 border border-red-900/30 rounded-lg hover:bg-zinc-800 transition-colors"
           >
             <div className="text-left">
-              <span className="text-[10px] block text-red-400 font-bold uppercase">
-                Comprar Almas
-              </span>
-              <span className="text-[9px] text-muted-foreground">
-                20 USDT ➔ 5.000 Almas
-              </span>
+              <span className="text-[10px] block text-red-400 font-bold uppercase">Comprar Almas</span>
+              <span className="text-[9px] text-muted-foreground">20 USDT ➔ 5.000 Almas</span>
             </div>
-            <span className="text-xs font-bold bg-red-900/40 px-3 py-1 rounded">
-              PACTAR
-            </span>
+            <span className="text-xs font-bold bg-red-900/40 px-3 py-1 rounded">PACTAR</span>
           </button>
 
           <button
@@ -79,28 +72,20 @@ export function ShopView({
             className="flex justify-between items-center p-3 bg-zinc-900 border border-green-900/30 rounded-lg hover:bg-zinc-800 transition-colors"
           >
             <div className="text-left">
-              <span className="text-[10px] block text-green-400 font-bold uppercase">
-                Vender Diamantes
-              </span>
-              <span className="text-[9px] text-muted-foreground">
-                5.000 💎 ➔ 2.00 USDT
-              </span>
+              <span className="text-[10px] block text-green-400 font-bold uppercase">Vender Diamantes</span>
+              <span className="text-[9px] text-muted-foreground">5.000 💎 ➔ 2.00 USDT</span>
             </div>
-            <span className="text-xs font-bold bg-green-900/40 px-3 py-1 rounded">
-              VENDER
-            </span>
+            <span className="text-xs font-bold bg-green-900/40 px-3 py-1 rounded">VENDER</span>
           </button>
-
         </div>
 
         {/* INSTAGRAM AUTO REWARD */}
         <div
           onClick={() => {
             window.open('https://www.instagram.com/xyvenqorix', '_blank')
-
-            if (!instaOpened) {
+            if (!instaOpened && !followedInsta) {
               setInstaOpened(true)
-              onFollowInstagram() // 👈 aquí das los +500 💎 automático
+              onFollowInstagram()
             }
           }}
           className={`w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg cursor-pointer ${
@@ -110,24 +95,11 @@ export function ShopView({
           <div className="flex items-center gap-3">
             <span>📸</span>
             <div className="text-left">
-              <span className="text-[10px] block text-pink-400 font-bold uppercase">
-                Instagram
-              </span>
-              <span className="text-[8px] text-muted-foreground">
-                +500 💎 automático por visitar
-              </span>
+              <span className="text-[10px] block text-pink-400 font-bold uppercase">Instagram</span>
+              <span className="text-[8px] text-muted-foreground">+500 💎 automático por visitar</span>
             </div>
           </div>
-
-          <span
-            className={`text-[9px] font-bold px-3 py-1 rounded ${
-              followedInsta
-                ? 'bg-gray-600 text-gray-300'
-                : instaOpened
-                ? 'bg-green-600/40 text-white'
-                : 'bg-pink-600/40 text-white'
-            }`}
-          >
+          <span className={`text-[9px] font-bold px-3 py-1 rounded ${followedInsta ? 'bg-gray-600 text-gray-300' : 'bg-pink-600/40 text-white'}`}>
             {followedInsta ? 'RECOMPENSA DADA ✔' : 'ACTIVAR'}
           </span>
         </div>
@@ -135,24 +107,18 @@ export function ShopView({
 
       {/* SETS */}
       <div className="space-y-2.5">
-        <h3 className="text-[10px] font-bold uppercase text-muted-foreground">
-          🛡️ Sets Premium
-        </h3>
-
+        <h3 className="text-[10px] font-bold uppercase text-muted-foreground">🛡️ Sets Premium</h3>
         {PREMIUM_SETS.map(item => {
           const status = getItemStatus('set', item.id)
           return (
             <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
               <div>
                 <div className="text-[10px] font-bold uppercase">{item.name}</div>
-                <div className="text-[8px] text-muted-foreground">
-                  Velocidad x{item.speed}
-                </div>
+                <div className="text-[8px] text-muted-foreground">Velocidad x{item.speed}</div>
               </div>
-
               <button
                 onClick={() => onBuyItem('set', item.id, item.usdt, 'usdt')}
-                className="text-[9px] px-3 py-1 rounded bg-zinc-800"
+                className={`text-[9px] px-3 py-1 rounded ${status ? 'bg-zinc-700 text-green-400' : 'bg-zinc-800'}`}
               >
                 {status ?? `${item.usdt} USDT`}
               </button>
@@ -163,24 +129,18 @@ export function ShopView({
 
       {/* ARMAS */}
       <div className="space-y-2.5">
-        <h3 className="text-[10px] font-bold uppercase text-muted-foreground">
-          ⚔️ Armas
-        </h3>
-
+        <h3 className="text-[10px] font-bold uppercase text-muted-foreground">⚔️ Armas</h3>
         {WEAPONS.map(item => {
           const status = getItemStatus('weapon', item.id)
           return (
             <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
               <div>
                 <div className="text-[10px] font-bold uppercase">{item.name}</div>
-                <div className="text-[8px] text-muted-foreground">
-                  Velocidad x{item.speed}
-                </div>
+                <div className="text-[8px] text-muted-foreground">Velocidad x{item.speed}</div>
               </div>
-
               <button
                 onClick={() => onBuyItem('weapon', item.id, item.diam, 'diam')}
-                className="text-[9px] px-3 py-1 rounded bg-zinc-800"
+                className={`text-[9px] px-3 py-1 rounded ${status ? 'bg-zinc-700 text-blue-400' : 'bg-zinc-800'}`}
               >
                 {status ?? `${item.diam} 💎`}
               </button>
@@ -191,21 +151,15 @@ export function ShopView({
 
       {/* DEFENSAS */}
       <div className="space-y-2.5">
-        <h3 className="text-[10px] font-bold uppercase text-muted-foreground">
-          🛡️ Escudos
-        </h3>
-
+        <h3 className="text-[10px] font-bold uppercase text-muted-foreground">🛡️ Escudos</h3>
         {DEFENSES.map(item => {
           const status = getItemStatus('defense', item.id)
           return (
             <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
-              <div className="text-[10px] font-bold uppercase">
-                {item.name}
-              </div>
-
+              <div className="text-[10px] font-bold uppercase">{item.name}</div>
               <button
                 onClick={() => onBuyItem('defense', item.id, item.diam, 'diam')}
-                className="text-[9px] px-3 py-1 rounded bg-zinc-800"
+                className={`text-[9px] px-3 py-1 rounded ${status ? 'bg-zinc-700 text-blue-400' : 'bg-zinc-800'}`}
               >
                 {status ?? `${item.diam} 💎`}
               </button>
@@ -213,7 +167,6 @@ export function ShopView({
           )
         })}
       </div>
-
     </section>
   )
 }
