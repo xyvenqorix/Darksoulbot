@@ -31,7 +31,7 @@ export function ShopView({
   const getItemStatus = (type: 'weapon' | 'defense' | 'set', id: string) => {
     const cat = `${type}s` as 'weapons' | 'defenses' | 'sets'
     if (equipped[type] === id) return 'EQUIPADO'
-    if (owned[cat]?.includes(id)) return 'USAR'
+    if (owned[cat].includes(id)) return 'USAR'
     return null
   }
 
@@ -48,61 +48,68 @@ export function ShopView({
 
           <button
             onClick={() => onExchange('usdt_souls')}
-            className="flex justify-between items-center p-3 bg-zinc-900 border border-red-900/30 rounded-lg hover:bg-zinc-800"
+            className="flex justify-between items-center p-3 bg-zinc-900 border border-red-900/30 rounded-lg hover:bg-zinc-800 transition-colors"
           >
-            <div>
-              <div className="text-[10px] text-red-400 font-bold uppercase">
+            <div className="text-left">
+              <span className="text-[10px] block text-red-400 font-bold uppercase">
                 Comprar Almas
-              </div>
-              <div className="text-[9px] text-muted-foreground">
-                20 USDT ➜ 5.000 Almas
-              </div>
+              </span>
+              <span className="text-[9px] text-muted-foreground">
+                20 USDT ➔ 5.000 Almas
+              </span>
             </div>
-            <div className="text-xs font-bold">PACTAR</div>
+            <span className="text-xs font-bold bg-red-900/40 px-3 py-1 rounded">
+              PACTAR
+            </span>
           </button>
 
           <button
             onClick={() => onExchange('diam_usdt')}
-            className="flex justify-between items-center p-3 bg-zinc-900 border border-green-900/30 rounded-lg hover:bg-zinc-800"
+            className="flex justify-between items-center p-3 bg-zinc-900 border border-green-900/30 rounded-lg hover:bg-zinc-800 transition-colors"
           >
-            <div>
-              <div className="text-[10px] text-green-400 font-bold uppercase">
+            <div className="text-left">
+              <span className="text-[10px] block text-green-400 font-bold uppercase">
                 Vender Diamantes
-              </div>
-              <div className="text-[9px] text-muted-foreground">
-                5.000 💎 ➜ 2.00 USDT
-              </div>
+              </span>
+              <span className="text-[9px] text-muted-foreground">
+                5.000 💎 ➔ 2.00 USDT
+              </span>
             </div>
-            <div className="text-xs font-bold">VENDER</div>
+            <span className="text-xs font-bold bg-green-900/40 px-3 py-1 rounded">
+              VENDER
+            </span>
           </button>
 
         </div>
 
-        {/* INSTAGRAM (TU LINK FINAL) */}
-        <a
-          href="https://www.instagram.com/xyvenqorix?igsh=ZmdzcWVtaDJpemdr"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg"
+        {/* INSTAGRAM FIXED */}
+        <button
+          onClick={() => {
+            window.open(
+              'https://www.instagram.com/xyvenqorix?igsh=ZmdzcWVtaDJpemdr',
+              '_blank'
+            )
+          }}
+          className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg hover:from-purple-900/30 hover:to-pink-900/30 transition-colors"
         >
           <div className="flex items-center gap-3">
             <span>📸</span>
-            <div>
-              <div className="text-[10px] text-pink-400 font-bold uppercase">
+            <div className="text-left">
+              <span className="text-[10px] block text-pink-400 font-bold uppercase">
                 Instagram
-              </div>
-              <div className="text-[8px] text-muted-foreground">
+              </span>
+              <span className="text-[8px] text-muted-foreground">
                 +500 💎 por seguir
-              </div>
+              </span>
             </div>
           </div>
 
           <button
             disabled={followedInsta}
             onClick={(e) => {
-              e.preventDefault()
               e.stopPropagation()
-              if (!followedInsta) onFollowInstagram()
+              if (followedInsta) return
+              onFollowInstagram()
             }}
             className={`text-[9px] font-bold px-3 py-1 rounded ${
               followedInsta
@@ -112,7 +119,8 @@ export function ShopView({
           >
             {followedInsta ? 'YA VINCULADO ✔' : 'RECLAMAR +500 💎'}
           </button>
-        </a>
+        </button>
+
       </div>
 
       {/* SETS */}
@@ -181,11 +189,8 @@ export function ShopView({
           const status = getItemStatus('defense', item.id)
           return (
             <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
-              <div>
-                <div className="text-[10px] font-bold uppercase">{item.name}</div>
-                <div className="text-[8px] text-muted-foreground">
-                  Velocidad x{item.speed}
-                </div>
+              <div className="text-[10px] font-bold uppercase">
+                {item.name}
               </div>
 
               <button
