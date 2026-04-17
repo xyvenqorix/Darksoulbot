@@ -212,4 +212,4 @@ export function ShopView({
 
     </section>
   )
-}
+      }
