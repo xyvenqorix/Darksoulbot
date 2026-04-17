@@ -48,7 +48,7 @@ export function ShopView({
 
           <button
             onClick={() => onExchange('usdt_souls')}
-            className="flex justify-between items-center p-3 bg-zinc-900 border border-red-900/30 rounded-lg hover:bg-zinc-800 transition-colors active:scale-[0.98]"
+            className="flex justify-between items-center p-3 bg-zinc-900 border border-red-900/30 rounded-lg hover:bg-zinc-800 transition-colors"
           >
             <div className="text-left">
               <span className="text-[10px] block text-red-400 font-bold uppercase">
@@ -58,14 +58,14 @@ export function ShopView({
                 20 USDT ➔ 5.000 Almas
               </span>
             </div>
-            <span className="text-xs font-bold text-foreground bg-red-900/40 px-3 py-1 rounded">
+            <span className="text-xs font-bold bg-red-900/40 px-3 py-1 rounded">
               PACTAR
             </span>
           </button>
 
           <button
             onClick={() => onExchange('diam_usdt')}
-            className="flex justify-between items-center p-3 bg-zinc-900 border border-green-900/30 rounded-lg hover:bg-zinc-800 transition-colors active:scale-[0.98]"
+            className="flex justify-between items-center p-3 bg-zinc-900 border border-green-900/30 rounded-lg hover:bg-zinc-800 transition-colors"
           >
             <div className="text-left">
               <span className="text-[10px] block text-green-400 font-bold uppercase">
@@ -75,23 +75,22 @@ export function ShopView({
                 5.000 💎 ➔ 2.00 USDT
               </span>
             </div>
-            <span className="text-xs font-bold text-foreground bg-green-900/40 px-3 py-1 rounded">
+            <span className="text-xs font-bold bg-green-900/40 px-3 py-1 rounded">
               VENDER
             </span>
           </button>
 
         </div>
 
-        {/* INSTAGRAM */}
+        {/* INSTAGRAM FIXED */}
         <button
           onClick={() => {
             window.open(
               'https://www.instagram.com/xyvenqorix?igsh=ZmdzcWVtaDJpemdr',
               '_blank'
             )
-            onFollowInstagram()
           }}
-          className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg hover:from-purple-900/30 hover:to-pink-900/30 transition-colors active:scale-[0.98]"
+          className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg hover:from-purple-900/30 hover:to-pink-900/30 transition-colors"
         >
           <div className="flex items-center gap-3">
             <span>📸</span>
@@ -100,46 +99,50 @@ export function ShopView({
                 Instagram
               </span>
               <span className="text-[8px] text-muted-foreground">
-                +500 💎 (Seguir)
+                +500 💎 por seguir
               </span>
             </div>
           </div>
 
-          <span className="text-[9px] font-bold text-foreground bg-pink-600/40 px-3 py-1 rounded">
-            {followedInsta ? 'RECLAMADO' : 'VINCULAR'}
-          </span>
+          <button
+            disabled={followedInsta}
+            onClick={(e) => {
+              e.stopPropagation()
+              if (followedInsta) return
+              onFollowInstagram()
+            }}
+            className={`text-[9px] font-bold px-3 py-1 rounded ${
+              followedInsta
+                ? 'bg-gray-600 text-gray-300'
+                : 'bg-pink-600/40 text-white hover:bg-pink-600/60'
+            }`}
+          >
+            {followedInsta ? 'YA VINCULADO ✔' : 'RECLAMAR +500 💎'}
+          </button>
         </button>
 
       </div>
 
       {/* SETS */}
       <div className="space-y-2.5">
-        <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+        <h3 className="text-[10px] font-bold uppercase text-muted-foreground">
           🛡️ Sets Premium
         </h3>
 
         {PREMIUM_SETS.map(item => {
           const status = getItemStatus('set', item.id)
           return (
-            <div key={item.id} className="bg-card border border-border/30 rounded-lg p-3 flex justify-between items-center">
+            <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
               <div>
-                <div className="text-[10px] font-bold uppercase text-foreground">
-                  {item.name}
-                </div>
+                <div className="text-[10px] font-bold uppercase">{item.name}</div>
                 <div className="text-[8px] text-muted-foreground">
-                  Velocidad x{item.speed} | Energía: {item.energyCost}/ciclo
+                  Velocidad x{item.speed}
                 </div>
               </div>
 
               <button
                 onClick={() => onBuyItem('set', item.id, item.usdt, 'usdt')}
-                className={`px-3 py-1 rounded text-[9px] uppercase font-bold ${
-                  status === 'EQUIPADO'
-                    ? 'bg-gold/20 text-gold border border-gold/30'
-                    : status === 'USAR'
-                    ? 'bg-blue-900/40 text-blue-300 hover:bg-blue-900/60'
-                    : 'bg-zinc-800 text-foreground hover:bg-zinc-700'
-                }`}
+                className="text-[9px] px-3 py-1 rounded bg-zinc-800"
               >
                 {status ?? `${item.usdt} USDT`}
               </button>
@@ -150,18 +153,16 @@ export function ShopView({
 
       {/* ARMAS */}
       <div className="space-y-2.5">
-        <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+        <h3 className="text-[10px] font-bold uppercase text-muted-foreground">
           ⚔️ Armas
         </h3>
 
         {WEAPONS.map(item => {
           const status = getItemStatus('weapon', item.id)
           return (
-            <div key={item.id} className="bg-card border border-border/30 rounded-lg p-3 flex justify-between items-center">
+            <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
               <div>
-                <div className="text-[10px] font-bold uppercase text-foreground">
-                  {item.name}
-                </div>
+                <div className="text-[10px] font-bold uppercase">{item.name}</div>
                 <div className="text-[8px] text-muted-foreground">
                   Velocidad x{item.speed}
                 </div>
@@ -169,13 +170,7 @@ export function ShopView({
 
               <button
                 onClick={() => onBuyItem('weapon', item.id, item.diam, 'diam')}
-                className={`px-3 py-1 rounded text-[9px] uppercase font-bold ${
-                  status === 'EQUIPADO'
-                    ? 'bg-gold/20 text-gold border border-gold/30'
-                    : status === 'USAR'
-                    ? 'bg-blue-900/40 text-blue-300 hover:bg-blue-900/60'
-                    : 'bg-zinc-800 text-foreground hover:bg-zinc-700'
-                }`}
+                className="text-[9px] px-3 py-1 rounded bg-zinc-800"
               >
                 {status ?? `${item.diam} 💎`}
               </button>
@@ -186,27 +181,21 @@ export function ShopView({
 
       {/* DEFENSAS */}
       <div className="space-y-2.5">
-        <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+        <h3 className="text-[10px] font-bold uppercase text-muted-foreground">
           🛡️ Escudos
         </h3>
 
         {DEFENSES.map(item => {
           const status = getItemStatus('defense', item.id)
           return (
-            <div key={item.id} className="bg-card border border-border/30 rounded-lg p-3 flex justify-between items-center">
-              <div className="text-[10px] font-bold uppercase text-foreground">
+            <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
+              <div className="text-[10px] font-bold uppercase">
                 {item.name}
               </div>
 
               <button
                 onClick={() => onBuyItem('defense', item.id, item.diam, 'diam')}
-                className={`px-3 py-1 rounded text-[9px] uppercase font-bold ${
-                  status === 'EQUIPADO'
-                    ? 'bg-gold/20 text-gold border border-gold/30'
-                    : status === 'USAR'
-                    ? 'bg-blue-900/40 text-blue-300 hover:bg-blue-900/60'
-                    : 'bg-zinc-800 text-foreground hover:bg-zinc-700'
-                }`}
+                className="text-[9px] px-3 py-1 rounded bg-zinc-800"
               >
                 {status ?? `${item.diam} 💎`}
               </button>
