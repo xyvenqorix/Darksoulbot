@@ -30,11 +30,8 @@ export function ShopView({
 
   const getItemStatus = (type: 'weapon' | 'defense' | 'set', id: string) => {
     const cat = `${type}s` as 'weapons' | 'defenses' | 'sets'
-
-    if (equipped?.[type] === id) return 'EQUIPADO'
-
-    if (owned?.[cat]?.includes(id)) return 'USAR'
-
+    if (equipped[type] === id) return 'EQUIPADO'
+    if (owned[cat]?.includes(id)) return 'USAR'
     return null
   }
 
@@ -43,7 +40,6 @@ export function ShopView({
 
       {/* MERCADO */}
       <div className="bg-card border border-border/30 rounded-lg p-4 space-y-4">
-
         <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest border-b border-border/30 pb-2">
           Mercado de Lordran
         </h3>
@@ -52,65 +48,59 @@ export function ShopView({
 
           <button
             onClick={() => onExchange('usdt_souls')}
-            className="flex justify-between items-center p-3 bg-zinc-900 border border-red-900/30 rounded-lg hover:bg-zinc-800 transition-colors"
+            className="flex justify-between items-center p-3 bg-zinc-900 border border-red-900/30 rounded-lg hover:bg-zinc-800"
           >
-            <div className="text-left">
-              <span className="text-[10px] block text-red-400 font-bold uppercase">
+            <div>
+              <div className="text-[10px] text-red-400 font-bold uppercase">
                 Comprar Almas
-              </span>
-              <span className="text-[9px] text-muted-foreground">
-                20 USDT ➔ 5.000 Almas
-              </span>
+              </div>
+              <div className="text-[9px] text-muted-foreground">
+                20 USDT ➜ 5.000 Almas
+              </div>
             </div>
-            <span className="text-xs font-bold bg-red-900/40 px-3 py-1 rounded">
-              PACTAR
-            </span>
+            <div className="text-xs font-bold">PACTAR</div>
           </button>
 
           <button
             onClick={() => onExchange('diam_usdt')}
-            className="flex justify-between items-center p-3 bg-zinc-900 border border-green-900/30 rounded-lg hover:bg-zinc-800 transition-colors"
+            className="flex justify-between items-center p-3 bg-zinc-900 border border-green-900/30 rounded-lg hover:bg-zinc-800"
           >
-            <div className="text-left">
-              <span className="text-[10px] block text-green-400 font-bold uppercase">
+            <div>
+              <div className="text-[10px] text-green-400 font-bold uppercase">
                 Vender Diamantes
-              </span>
-              <span className="text-[9px] text-muted-foreground">
-                5.000 💎 ➔ 2.00 USDT
-              </span>
+              </div>
+              <div className="text-[9px] text-muted-foreground">
+                5.000 💎 ➜ 2.00 USDT
+              </div>
             </div>
-            <span className="text-xs font-bold bg-green-900/40 px-3 py-1 rounded">
-              VENDER
-            </span>
+            <div className="text-xs font-bold">VENDER</div>
           </button>
 
         </div>
 
-        {/* INSTAGRAM (ARREGLADO SIN ROMPER TU FLUJO) */}
-        <button
-          onClick={() =>
-            window.open(
-              'https://www.instagram.com/xyvenqorix?igsh=ZmdzcWVtaDJpemdr',
-              '_blank'
-            )
-          }
-          className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg hover:from-purple-900/30 hover:to-pink-900/30 transition-colors"
+        {/* INSTAGRAM (TU LINK FINAL) */}
+        <a
+          href="https://www.instagram.com/xyvenqorix?igsh=ZmdzcWVtaDJpemdr"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg"
         >
           <div className="flex items-center gap-3">
             <span>📸</span>
-            <div className="text-left">
-              <span className="text-[10px] block text-pink-400 font-bold uppercase">
+            <div>
+              <div className="text-[10px] text-pink-400 font-bold uppercase">
                 Instagram
-              </span>
-              <span className="text-[8px] text-muted-foreground">
+              </div>
+              <div className="text-[8px] text-muted-foreground">
                 +500 💎 por seguir
-              </span>
+              </div>
             </div>
           </div>
 
           <button
             disabled={followedInsta}
             onClick={(e) => {
+              e.preventDefault()
               e.stopPropagation()
               if (!followedInsta) onFollowInstagram()
             }}
@@ -122,8 +112,7 @@ export function ShopView({
           >
             {followedInsta ? 'YA VINCULADO ✔' : 'RECLAMAR +500 💎'}
           </button>
-        </button>
-
+        </a>
       </div>
 
       {/* SETS */}
@@ -134,7 +123,6 @@ export function ShopView({
 
         {PREMIUM_SETS.map(item => {
           const status = getItemStatus('set', item.id)
-
           return (
             <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
               <div>
@@ -163,7 +151,6 @@ export function ShopView({
 
         {WEAPONS.map(item => {
           const status = getItemStatus('weapon', item.id)
-
           return (
             <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
               <div>
@@ -192,11 +179,13 @@ export function ShopView({
 
         {DEFENSES.map(item => {
           const status = getItemStatus('defense', item.id)
-
           return (
             <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
-              <div className="text-[10px] font-bold uppercase">
-                {item.name}
+              <div>
+                <div className="text-[10px] font-bold uppercase">{item.name}</div>
+                <div className="text-[8px] text-muted-foreground">
+                  Velocidad x{item.speed}
+                </div>
               </div>
 
               <button
@@ -212,4 +201,4 @@ export function ShopView({
 
     </section>
   )
-      }
+}
