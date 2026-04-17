@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Hueco Zombi - Pixel Art Style -->
+  <!-- Cuerpo -->
+  <rect x="22" y="28" width="20" height="24" fill="#3d5a3d"/>
+  <!-- Cabeza -->
+  <rect x="20" y="8" width="24" height="20" fill="#4a6a4a"/>
+  <!-- Ojos hundidos -->
+  <rect x="24" y="14" width="5" height="5" fill="#1a1a1a"/>
+  <rect x="35" y="14" width="5" height="5" fill="#1a1a1a"/>
+  <rect x="25" y="15" width="2" height="2" fill="#ff6666"/>
+  <rect x="36" y="15" width="2" height="2" fill="#ff6666"/>
+  <!-- Boca -->
+  <rect x="26" y="22" width="12" height="3" fill="#1a1a1a"/>
+  <rect x="28" y="22" width="2" height="2" fill="#eeeeee"/>
+  <rect x="34" y="22" width="2" height="2" fill="#eeeeee"/>
+  <!-- Brazos extendidos -->
+  <rect x="10" y="30" width="12" height="6" fill="#3d5a3d"/>
+  <rect x="42" y="30" width="12" height="6" fill="#3d5a3d"/>
+  <!-- Manos -->
+  <rect x="6" y="30" width="4" height="8" fill="#4a6a4a"/>
+  <rect x="54" y="30" width="4" height="8" fill="#4a6a4a"/>
+  <!-- Piernas -->
+  <rect x="24" y="52" width="6" height="10" fill="#2d4a2d"/>
+  <rect x="34" y="52" width="6" height="10" fill="#2d4a2d"/>
+  <!-- Harapos -->
+  <rect x="22" y="28" width="2" height="8" fill="#4a3a2a"/>
+  <rect x="40" y="28" width="2" height="12" fill="#4a3a2a"/>
+  <!-- Heridas -->
+  <rect x="30" y="32" width="4" height="2" fill="#8b0000"/>
+  <rect x="26" y="40" width="3" height="2" fill="#8b0000"/>
+</svg>

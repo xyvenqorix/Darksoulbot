@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Diablo del Abismo - Pixel Art Style Boss -->
+  <!-- Cuerpo muscular -->
+  <rect x="18" y="24" width="28" height="28" fill="#4a1a1a"/>
+  <rect x="22" y="28" width="20" height="20" fill="#5a2020"/>
+  <!-- Cabeza -->
+  <rect x="20" y="8" width="24" height="16" fill="#6a2828"/>
+  <!-- Cuernos -->
+  <rect x="16" y="4" width="4" height="12" fill="#2a1a1a"/>
+  <rect x="12" y="0" width="4" height="8" fill="#2a1a1a"/>
+  <rect x="44" y="4" width="4" height="12" fill="#2a1a1a"/>
+  <rect x="48" y="0" width="4" height="8" fill="#2a1a1a"/>
+  <!-- Ojos de fuego -->
+  <rect x="24" y="12" width="6" height="6" fill="#ff6600"/>
+  <rect x="34" y="12" width="6" height="6" fill="#ff6600"/>
+  <rect x="26" y="14" width="2" height="2" fill="#ffff00"/>
+  <rect x="36" y="14" width="2" height="2" fill="#ffff00"/>
+  <!-- Boca con dientes -->
+  <rect x="26" y="20" width="12" height="4" fill="#1a0a0a"/>
+  <rect x="28" y="20" width="2" height="2" fill="#ffffff"/>
+  <rect x="32" y="20" width="2" height="2" fill="#ffffff"/>
+  <rect x="36" y="20" width="2" height="2" fill="#ffffff"/>
+  <!-- Brazos -->
+  <rect x="8" y="26" width="10" height="8" fill="#5a2020"/>
+  <rect x="46" y="26" width="10" height="8" fill="#5a2020"/>
+  <!-- Garras de fuego -->
+  <rect x="4" y="30" width="4" height="8" fill="#6a2828"/>
+  <rect x="2" y="36" width="2" height="4" fill="#ff4400"/>
+  <rect x="6" y="36" width="2" height="4" fill="#ff4400"/>
+  <rect x="56" y="30" width="4" height="8" fill="#6a2828"/>
+  <rect x="56" y="36" width="2" height="4" fill="#ff4400"/>
+  <rect x="60" y="36" width="2" height="4" fill="#ff4400"/>
+  <!-- Piernas -->
+  <rect x="22" y="52" width="8" height="10" fill="#4a1a1a"/>
+  <rect x="34" y="52" width="8" height="10" fill="#4a1a1a"/>
+  <!-- Pezuñas -->
+  <rect x="20" y="60" width="12" height="4" fill="#2a1010"/>
+  <rect x="32" y="60" width="12" height="4" fill="#2a1010"/>
+  <!-- Llamas del cuerpo -->
+  <rect x="30" y="24" width="4" height="4" fill="#ff6600"/>
+  <rect x="28" y="20" width="2" height="4" fill="#ffaa00" opacity="0.7"/>
+  <rect x="34" y="20" width="2" height="4" fill="#ffaa00" opacity="0.7"/>
+</svg>
