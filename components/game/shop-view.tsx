@@ -14,7 +14,12 @@ interface ShopViewProps {
     set: string | null
   }
   followedInsta: boolean
-  onBuyItem: (type: 'weapon' | 'defense' | 'set', id: string, cost: number, currency: 'usdt' | 'diam') => void
+  onBuyItem: (
+    type: 'weapon' | 'defense' | 'set',
+    id: string,
+    cost: number,
+    currency: 'usdt' | 'diam'
+  ) => void
   onExchange: (mode: 'usdt_souls' | 'diam_usdt') => void
   onFollowInstagram: () => void
 }
@@ -27,8 +32,10 @@ export function ShopView({
   onExchange,
   onFollowInstagram
 }: ShopViewProps) {
-
-  const getItemStatus = (type: 'weapon' | 'defense' | 'set', id: string) => {
+  const getItemStatus = (
+    type: 'weapon' | 'defense' | 'set',
+    id: string
+  ) => {
     const cat = `${type}s` as 'weapons' | 'defenses' | 'sets'
     if (equipped[type] === id) return 'EQUIPADO'
     if (owned[cat].includes(id)) return 'USAR'
@@ -83,13 +90,8 @@ export function ShopView({
         </div>
 
         {/* INSTAGRAM FIXED */}
-        <button
-          onClick={() => {
-            window.open(
-              'https://www.instagram.com/xyvenqorix?igsh=ZmdzcWVtaDJpemdr',
-              '_blank'
-            )
-          }}
+        <a
+          href="https://www.instagram.com/xyvenqorix?igsh=ZmdzcWVtaDJpemdr"
           className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg hover:from-purple-900/30 hover:to-pink-900/30 transition-colors"
         >
           <div className="flex items-center gap-3">
@@ -107,6 +109,7 @@ export function ShopView({
           <button
             disabled={followedInsta}
             onClick={(e) => {
+              e.preventDefault()
               e.stopPropagation()
               if (followedInsta) return
               onFollowInstagram()
@@ -119,7 +122,7 @@ export function ShopView({
           >
             {followedInsta ? 'YA VINCULADO ✔' : 'RECLAMAR +500 💎'}
           </button>
-        </button>
+        </a>
 
       </div>
 
