@@ -30,8 +30,11 @@ export function ShopView({
 
   const getItemStatus = (type: 'weapon' | 'defense' | 'set', id: string) => {
     const cat = `${type}s` as 'weapons' | 'defenses' | 'sets'
-    if (equipped[type] === id) return 'EQUIPADO'
-    if (owned[cat].includes(id)) return 'USAR'
+
+    if (equipped?.[type] === id) return 'EQUIPADO'
+
+    if (owned?.[cat]?.includes(id)) return 'USAR'
+
     return null
   }
 
@@ -40,6 +43,7 @@ export function ShopView({
 
       {/* MERCADO */}
       <div className="bg-card border border-border/30 rounded-lg p-4 space-y-4">
+
         <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest border-b border-border/30 pb-2">
           Mercado de Lordran
         </h3>
@@ -82,14 +86,14 @@ export function ShopView({
 
         </div>
 
-        {/* INSTAGRAM FIXED */}
+        {/* INSTAGRAM (ARREGLADO SIN ROMPER TU FLUJO) */}
         <button
-          onClick={() => {
+          onClick={() =>
             window.open(
               'https://www.instagram.com/xyvenqorix?igsh=ZmdzcWVtaDJpemdr',
               '_blank'
             )
-          }}
+          }
           className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg hover:from-purple-900/30 hover:to-pink-900/30 transition-colors"
         >
           <div className="flex items-center gap-3">
@@ -108,8 +112,7 @@ export function ShopView({
             disabled={followedInsta}
             onClick={(e) => {
               e.stopPropagation()
-              if (followedInsta) return
-              onFollowInstagram()
+              if (!followedInsta) onFollowInstagram()
             }}
             className={`text-[9px] font-bold px-3 py-1 rounded ${
               followedInsta
@@ -131,6 +134,7 @@ export function ShopView({
 
         {PREMIUM_SETS.map(item => {
           const status = getItemStatus('set', item.id)
+
           return (
             <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
               <div>
@@ -159,6 +163,7 @@ export function ShopView({
 
         {WEAPONS.map(item => {
           const status = getItemStatus('weapon', item.id)
+
           return (
             <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
               <div>
@@ -187,6 +192,7 @@ export function ShopView({
 
         {DEFENSES.map(item => {
           const status = getItemStatus('defense', item.id)
+
           return (
             <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
               <div className="text-[10px] font-bold uppercase">
