@@ -93,60 +93,126 @@ export function ShopView({
 
         </div>
 
-        {/* INSTAGRAM (FIXED PROPER) */}
-        <div className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg">
+        {/* INSTAGRAM AUTO REWARD */}
+        <div
+          onClick={() => {
+            window.open('https://www.instagram.com/xyvenqorix', '_blank')
 
-          {/* SOLO ESTO ABRE INSTAGRAM */}
-          <div
-            onClick={() => {
-              window.open('https://www.instagram.com/xyvenqorix', '_blank')
+            if (!instaOpened) {
               setInstaOpened(true)
-            }}
-            className="flex items-center gap-3 cursor-pointer"
-          >
+              onFollowInstagram() // 👈 aquí das los +500 💎 automático
+            }
+          }}
+          className={`w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg cursor-pointer ${
+            followedInsta ? 'opacity-60' : ''
+          }`}
+        >
+          <div className="flex items-center gap-3">
             <span>📸</span>
             <div className="text-left">
               <span className="text-[10px] block text-pink-400 font-bold uppercase">
                 Instagram
               </span>
               <span className="text-[8px] text-muted-foreground">
-                +500 💎 por seguir
+                +500 💎 automático por visitar
               </span>
             </div>
           </div>
 
-          {/* SOLO BOTÓN DE RECLAMO */}
-          <button
-            disabled={followedInsta}
-            onClick={() => {
-              if (!instaOpened) {
-                alert('❌ Primero abre Instagram')
-                return
-              }
-
-              if (followedInsta) return
-
-              onFollowInstagram()
-            }}
+          <span
             className={`text-[9px] font-bold px-3 py-1 rounded ${
               followedInsta
                 ? 'bg-gray-600 text-gray-300'
                 : instaOpened
-                ? 'bg-pink-600/40 text-white hover:bg-pink-600/60'
-                : 'bg-red-600/40 text-red-200'
+                ? 'bg-green-600/40 text-white'
+                : 'bg-pink-600/40 text-white'
             }`}
           >
-            {!instaOpened
-              ? 'BLOQUEADO'
-              : followedInsta
-              ? 'YA RECLAMADO ✔'
-              : 'RECLAMAR +500 💎'}
-          </button>
-
+            {followedInsta ? 'RECOMPENSA DADA ✔' : 'ACTIVAR'}
+          </span>
         </div>
       </div>
 
-      {/* (TODO LO DEMÁS SE QUEDA IGUAL) */}
+      {/* SETS */}
+      <div className="space-y-2.5">
+        <h3 className="text-[10px] font-bold uppercase text-muted-foreground">
+          🛡️ Sets Premium
+        </h3>
+
+        {PREMIUM_SETS.map(item => {
+          const status = getItemStatus('set', item.id)
+          return (
+            <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
+              <div>
+                <div className="text-[10px] font-bold uppercase">{item.name}</div>
+                <div className="text-[8px] text-muted-foreground">
+                  Velocidad x{item.speed}
+                </div>
+              </div>
+
+              <button
+                onClick={() => onBuyItem('set', item.id, item.usdt, 'usdt')}
+                className="text-[9px] px-3 py-1 rounded bg-zinc-800"
+              >
+                {status ?? `${item.usdt} USDT`}
+              </button>
+            </div>
+          )
+        })}
+      </div>
+
+      {/* ARMAS */}
+      <div className="space-y-2.5">
+        <h3 className="text-[10px] font-bold uppercase text-muted-foreground">
+          ⚔️ Armas
+        </h3>
+
+        {WEAPONS.map(item => {
+          const status = getItemStatus('weapon', item.id)
+          return (
+            <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
+              <div>
+                <div className="text-[10px] font-bold uppercase">{item.name}</div>
+                <div className="text-[8px] text-muted-foreground">
+                  Velocidad x{item.speed}
+                </div>
+              </div>
+
+              <button
+                onClick={() => onBuyItem('weapon', item.id, item.diam, 'diam')}
+                className="text-[9px] px-3 py-1 rounded bg-zinc-800"
+              >
+                {status ?? `${item.diam} 💎`}
+              </button>
+            </div>
+          )
+        })}
+      </div>
+
+      {/* DEFENSAS */}
+      <div className="space-y-2.5">
+        <h3 className="text-[10px] font-bold uppercase text-muted-foreground">
+          🛡️ Escudos
+        </h3>
+
+        {DEFENSES.map(item => {
+          const status = getItemStatus('defense', item.id)
+          return (
+            <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
+              <div className="text-[10px] font-bold uppercase">
+                {item.name}
+              </div>
+
+              <button
+                onClick={() => onBuyItem('defense', item.id, item.diam, 'diam')}
+                className="text-[9px] px-3 py-1 rounded bg-zinc-800"
+              >
+                {status ?? `${item.diam} 💎`}
+              </button>
+            </div>
+          )
+        })}
+      </div>
 
     </section>
   )
