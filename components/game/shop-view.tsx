@@ -32,6 +32,7 @@ export function ShopView({
   onExchange,
   onFollowInstagram
 }: ShopViewProps) {
+
   const getItemStatus = (
     type: 'weapon' | 'defense' | 'set',
     id: string
@@ -90,9 +91,11 @@ export function ShopView({
         </div>
 
         {/* INSTAGRAM FIXED */}
-        <a
-          href="https://www.instagram.com/xyvenqorix?igsh=ZmdzcWVtaDJpemdr"
-          className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg hover:from-purple-900/30 hover:to-pink-900/30 transition-colors"
+        <div
+          onClick={() =>
+            window.open('https://www.instagram.com/xyvenqorix', '_blank')
+          }
+          className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg hover:from-purple-900/30 hover:to-pink-900/30 transition-colors cursor-pointer"
         >
           <div className="flex items-center gap-3">
             <span>📸</span>
@@ -109,7 +112,6 @@ export function ShopView({
           <button
             disabled={followedInsta}
             onClick={(e) => {
-              e.preventDefault()
               e.stopPropagation()
               if (followedInsta) return
               onFollowInstagram()
@@ -122,8 +124,8 @@ export function ShopView({
           >
             {followedInsta ? 'YA VINCULADO ✔' : 'RECLAMAR +500 💎'}
           </button>
-        </a>
 
+        </div>
       </div>
 
       {/* SETS */}
