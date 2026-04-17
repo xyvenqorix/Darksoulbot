@@ -36,21 +36,10 @@ export function ShopView({
 
   const [instaOpened, setInstaOpened] = useState(false)
 
-  const getItemStatus = (
-    type: 'weapon' | 'defense' | 'set',
-    id: string
-  ) => {
-    // CORRECCIÓN: Acceso correcto a las propiedades del objeto 'owned'
-    const catMap = {
-      weapon: 'weapons',
-      defense: 'defenses',
-      set: 'sets'
-    } as const;
-
-    const cat = catMap[type];
-    
+  const getItemStatus = (type: 'weapon' | 'defense' | 'set', id: string) => {
+    const cat = `${type}s` as 'weapons' | 'defenses' | 'sets'
     if (equipped[type] === id) return 'EQUIPADO'
-    if (owned[cat] && owned[cat].includes(id)) return 'USAR'
+    if (owned[cat].includes(id)) return 'USAR'
     return null
   }
 
@@ -59,6 +48,7 @@ export function ShopView({
 
       {/* MERCADO */}
       <div className="bg-card border border-border/30 rounded-lg p-4 space-y-4">
+
         <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest border-b border-border/30 pb-2">
           Mercado de Lordran
         </h3>
@@ -67,159 +57,98 @@ export function ShopView({
 
           <button
             onClick={() => onExchange('usdt_souls')}
-            className="flex justify-between items-center p-3 bg-zinc-900 border border-red-900/30 rounded-lg hover:bg-zinc-800 transition-colors"
+            className="flex justify-between items-center p-3 bg-zinc-900 border border-red-900/30 rounded-lg"
           >
-            <div className="text-left">
-              <span className="text-[10px] block text-red-400 font-bold uppercase">
-                Comprar Almas
-              </span>
-              <span className="text-[9px] text-muted-foreground">
-                20 USDT ➔ 5.000 Almas
-              </span>
-            </div>
-            <span className="text-xs font-bold bg-red-900/40 px-3 py-1 rounded">
-              PACTAR
-            </span>
+            Comprar Almas
           </button>
 
           <button
             onClick={() => onExchange('diam_usdt')}
-            className="flex justify-between items-center p-3 bg-zinc-900 border border-green-900/30 rounded-lg hover:bg-zinc-800 transition-colors"
+            className="flex justify-between items-center p-3 bg-zinc-900 border border-green-900/30 rounded-lg"
           >
-            <div className="text-left">
-              <span className="text-[10px] block text-green-400 font-bold uppercase">
-                Vender Diamantes
-              </span>
-              <span className="text-[9px] text-muted-foreground">
-                5.000 💎 ➔ 2.00 USDT
-              </span>
-            </div>
-            <span className="text-xs font-bold bg-green-900/40 px-3 py-1 rounded">
-              VENDER
-            </span>
+            Vender Diamantes
           </button>
 
         </div>
 
-        {/* INSTAGRAM AUTO REWARD */}
+        {/* INSTAGRAM (NO DUPLICA REWARD) */}
         <div
           onClick={() => {
             window.open('https://www.instagram.com/xyvenqorix', '_blank')
 
-            if (!instaOpened && !followedInsta) {
+            if (!followedInsta) {
               setInstaOpened(true)
-              onFollowInstagram() // 👈 aquí das los +500 💎 automático
+              onFollowInstagram()
             }
           }}
-          className={`w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg cursor-pointer ${
-            followedInsta ? 'opacity-60' : ''
-          }`}
+          className="w-full flex justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg cursor-pointer"
         >
-          <div className="flex items-center gap-3">
-            <span>📸</span>
-            <div className="text-left">
-              <span className="text-[10px] block text-pink-400 font-bold uppercase">
-                Instagram
-              </span>
-              <span className="text-[8px] text-muted-foreground">
-                +500 💎 automático por visitar
-              </span>
-            </div>
+          <div>
+            📸 Instagram +500 💎
           </div>
 
-          <span
-            className={`text-[9px] font-bold px-3 py-1 rounded ${
-              followedInsta
-                ? 'bg-gray-600 text-gray-300'
-                : instaOpened
-                ? 'bg-green-600/40 text-white'
-                : 'bg-pink-600/40 text-white'
-            }`}
-          >
-            {followedInsta ? 'RECOMPENSA DADA ✔' : 'ACTIVAR'}
+          <span>
+            {followedInsta ? 'OK ✔' : instaOpened ? 'DADO' : 'ACTIVAR'}
           </span>
         </div>
+
       </div>
 
       {/* SETS */}
-      <div className="space-y-2.5">
-        <h3 className="text-[10px] font-bold uppercase text-muted-foreground">
-          🛡️ Sets Premium
-        </h3>
+      <div>
+        <h3>🛡️ Sets</h3>
 
-        {PREMIUM_SETS.map(item => {
-          const status = getItemStatus('set', item.id)
-          return (
-            <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
-              <div>
-                <div className="text-[10px] font-bold uppercase">{item.name}</div>
-                <div className="text-[8px] text-muted-foreground">
-                  Velocidad x{item.speed}
-                </div>
-              </div>
+        {PREMIUM_SETS.map(item => (
+          <div key={item.id} className="flex justify-between p-3 bg-card">
+            <div>{item.name}</div>
 
-              <button
-                onClick={() => onBuyItem('set', item.id, item.usdt, 'usdt')}
-                className={`text-[9px] px-3 py-1 rounded transition-colors ${status ? 'bg-zinc-700 text-yellow-500' : 'bg-zinc-800 text-white'}`}
-              >
-                {status ?? `${item.usdt} USDT`}
-              </button>
-            </div>
-          )
-        })}
+            <button
+              onClick={() =>
+                onBuyItem('set', item.id, item.usdt, 'usdt')
+              }
+            >
+              {getItemStatus('set', item.id) ?? `${item.usdt} USDT`}
+            </button>
+          </div>
+        ))}
       </div>
 
       {/* ARMAS */}
-      <div className="space-y-2.5">
-        <h3 className="text-[10px] font-bold uppercase text-muted-foreground">
-          ⚔️ Armas
-        </h3>
+      <div>
+        <h3>⚔️ Armas</h3>
 
-        {WEAPONS.map(item => {
-          const status = getItemStatus('weapon', item.id)
-          return (
-            <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
-              <div>
-                <div className="text-[10px] font-bold uppercase">{item.name}</div>
-                <div className="text-[8px] text-muted-foreground">
-                  Velocidad x{item.speed}
-                </div>
-              </div>
+        {WEAPONS.map(item => (
+          <div key={item.id} className="flex justify-between p-3 bg-card">
+            <div>{item.name}</div>
 
-              <button
-                onClick={() => onBuyItem('weapon', item.id, item.diam, 'diam')}
-                className={`text-[9px] px-3 py-1 rounded transition-colors ${status ? 'bg-zinc-700 text-blue-400' : 'bg-zinc-800 text-white'}`}
-              >
-                {status ?? `${item.diam} 💎`}
-              </button>
-            </div>
-          )
-        })}
+            <button
+              onClick={() =>
+                onBuyItem('weapon', item.id, item.diam, 'diam')
+              }
+            >
+              {getItemStatus('weapon', item.id) ?? `${item.diam} 💎`}
+            </button>
+          </div>
+        ))}
       </div>
 
       {/* DEFENSAS */}
-      <div className="space-y-2.5">
-        <h3 className="text-[10px] font-bold uppercase text-muted-foreground">
-          🛡️ Escudos
-        </h3>
+      <div>
+        <h3>🛡️ Escudos</h3>
 
-        {DEFENSES.map(item => {
-          const status = getItemStatus('defense', item.id)
-          return (
-            <div key={item.id} className="bg-card p-3 rounded-lg flex justify-between items-center">
-              <div className="text-[10px] font-bold uppercase">
-                {item.name}
-              </div>
+        {DEFENSES.map(item => (
+          <div key={item.id} className="flex justify-between p-3 bg-card">
+            <div>{item.name}</div>
 
-              <button
-                onClick={() => onBuyItem('defense', item.id, item.diam, 'diam')}
-                className={`text-[9px] px-3 py-1 rounded transition-colors ${status ? 'bg-zinc-700 text-blue-400' : 'bg-zinc-800 text-white'}`}
-              >
-                {status ?? `${item.diam} 💎`}
-              </button>
-            </div>
-          )
-        })}
+            <button
+              onClick={() =>
+                onBuyItem('defense', item.id, item.diam, 'diam')
+              }
+            >
+              {getItemStatus('defense', item.id) ?? `${item.diam} 💎`}
+            </button>
+          </div>
+        ))}
       </div>
 
     </section>
