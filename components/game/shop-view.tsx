@@ -38,7 +38,7 @@ export function ShopView({
   return (
     <section className="space-y-6">
 
-      {/* Mercado */}
+      {/* MERCADO */}
       <div className="bg-card border border-border/30 rounded-lg p-4 space-y-4">
         <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest border-b border-border/30 pb-2">
           Mercado de Lordran
@@ -82,11 +82,15 @@ export function ShopView({
 
         </div>
 
-        {/* INSTAGRAM (MEJOR PRACTICA CON <a>) */}
-        <a
-          href="https://www.instagram.com/xyvenqorix?igsh=ZmdzcWVtaDJpemdr"
-          target="_blank"
-          rel="noopener noreferrer"
+        {/* INSTAGRAM */}
+        <button
+          onClick={() => {
+            window.open(
+              'https://www.instagram.com/xyvenqorix?igsh=ZmdzcWVtaDJpemdr',
+              '_blank'
+            )
+            onFollowInstagram()
+          }}
           className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg hover:from-purple-900/30 hover:to-pink-900/30 transition-colors active:scale-[0.98]"
         >
           <div className="flex items-center gap-3">
@@ -104,11 +108,11 @@ export function ShopView({
           <span className="text-[9px] font-bold text-foreground bg-pink-600/40 px-3 py-1 rounded">
             {followedInsta ? 'RECLAMADO' : 'VINCULAR'}
           </span>
-        </a>
+        </button>
 
       </div>
 
-      {/* Sets Premium */}
+      {/* SETS */}
       <div className="space-y-2.5">
         <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
           🛡️ Sets Premium
@@ -135,7 +139,7 @@ export function ShopView({
                     : status === 'USAR'
                     ? 'bg-blue-900/40 text-blue-300 hover:bg-blue-900/60'
                     : 'bg-zinc-800 text-foreground hover:bg-zinc-700'
-                } transition-colors active:scale-[0.98]`}
+                }`}
               >
                 {status ?? `${item.usdt} USDT`}
               </button>
@@ -144,7 +148,7 @@ export function ShopView({
         })}
       </div>
 
-      {/* Armas */}
+      {/* ARMAS */}
       <div className="space-y-2.5">
         <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
           ⚔️ Armas
@@ -171,7 +175,7 @@ export function ShopView({
                     : status === 'USAR'
                     ? 'bg-blue-900/40 text-blue-300 hover:bg-blue-900/60'
                     : 'bg-zinc-800 text-foreground hover:bg-zinc-700'
-                } transition-colors active:scale-[0.98]`}
+                }`}
               >
                 {status ?? `${item.diam} 💎`}
               </button>
@@ -180,7 +184,7 @@ export function ShopView({
         })}
       </div>
 
-      {/* Defensas */}
+      {/* DEFENSAS */}
       <div className="space-y-2.5">
         <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
           🛡️ Escudos
@@ -202,7 +206,7 @@ export function ShopView({
                     : status === 'USAR'
                     ? 'bg-blue-900/40 text-blue-300 hover:bg-blue-900/60'
                     : 'bg-zinc-800 text-foreground hover:bg-zinc-700'
-                } transition-colors active:scale-[0.98]`}
+                }`}
               >
                 {status ?? `${item.diam} 💎`}
               </button>
