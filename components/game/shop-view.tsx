@@ -51,16 +51,59 @@ export function ShopView({
 
       {/* MERCADO */}
       <div className="bg-card border border-border/30 rounded-lg p-4 space-y-4">
+        <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest border-b border-border/30 pb-2">
+          Mercado de Lordran
+        </h3>
 
-        {/* INSTAGRAM SYSTEM */}
-        <div
-          onClick={() => {
-            window.open('https://www.instagram.com/xyvenqorix', '_blank')
-            setInstaOpened(true)
-          }}
-          className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg cursor-pointer"
-        >
-          <div className="flex items-center gap-3">
+        <div className="grid grid-cols-1 gap-3">
+
+          <button
+            onClick={() => onExchange('usdt_souls')}
+            className="flex justify-between items-center p-3 bg-zinc-900 border border-red-900/30 rounded-lg hover:bg-zinc-800 transition-colors"
+          >
+            <div className="text-left">
+              <span className="text-[10px] block text-red-400 font-bold uppercase">
+                Comprar Almas
+              </span>
+              <span className="text-[9px] text-muted-foreground">
+                20 USDT ➔ 5.000 Almas
+              </span>
+            </div>
+            <span className="text-xs font-bold bg-red-900/40 px-3 py-1 rounded">
+              PACTAR
+            </span>
+          </button>
+
+          <button
+            onClick={() => onExchange('diam_usdt')}
+            className="flex justify-between items-center p-3 bg-zinc-900 border border-green-900/30 rounded-lg hover:bg-zinc-800 transition-colors"
+          >
+            <div className="text-left">
+              <span className="text-[10px] block text-green-400 font-bold uppercase">
+                Vender Diamantes
+              </span>
+              <span className="text-[9px] text-muted-foreground">
+                5.000 💎 ➔ 2.00 USDT
+              </span>
+            </div>
+            <span className="text-xs font-bold bg-green-900/40 px-3 py-1 rounded">
+              VENDER
+            </span>
+          </button>
+
+        </div>
+
+        {/* INSTAGRAM (FIXED PROPER) */}
+        <div className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-pink-500/30 rounded-lg">
+
+          {/* SOLO ESTO ABRE INSTAGRAM */}
+          <div
+            onClick={() => {
+              window.open('https://www.instagram.com/xyvenqorix', '_blank')
+              setInstaOpened(true)
+            }}
+            className="flex items-center gap-3 cursor-pointer"
+          >
             <span>📸</span>
             <div className="text-left">
               <span className="text-[10px] block text-pink-400 font-bold uppercase">
@@ -72,13 +115,12 @@ export function ShopView({
             </div>
           </div>
 
+          {/* SOLO BOTÓN DE RECLAMO */}
           <button
             disabled={followedInsta}
-            onClick={(e) => {
-              e.stopPropagation()
-
+            onClick={() => {
               if (!instaOpened) {
-                alert('❌ No vinculado a Instagram')
+                alert('❌ Primero abre Instagram')
                 return
               }
 
@@ -95,14 +137,16 @@ export function ShopView({
             }`}
           >
             {!instaOpened
-              ? 'NO VINCULADO'
+              ? 'BLOQUEADO'
               : followedInsta
               ? 'YA RECLAMADO ✔'
               : 'RECLAMAR +500 💎'}
           </button>
-        </div>
 
+        </div>
       </div>
+
+      {/* (TODO LO DEMÁS SE QUEDA IGUAL) */}
 
     </section>
   )
